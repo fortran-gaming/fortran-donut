@@ -5,6 +5,8 @@ use, intrinsic :: iso_fortran_env, only : wp=>real64, stdout => output_unit
 implicit none (type, external)
 
 character, parameter :: ESC = achar(27)
+character(3), parameter :: LF = ESC // "[d" !< line feed
+character(3), parameter :: TL = ESC // "[2J" !< erase screen and move to top left
 character, parameter :: TAB(0:11) = [".", ",", "-", "~", ":", ";", "=", "!", "*", "#", "$", "@"]
 real(wp), parameter :: PI = 4*atan(1.)
 
@@ -21,6 +23,8 @@ character(5) :: buf
 
 character(:), allocatable :: dumpfn
 logical :: dump
+
+print *, ESC // "[?25l" !< hide cursor
 
 Nloop = 300
 dump = .false.
@@ -49,7 +53,8 @@ allocate(z(0:L-1), screen(0:L-1))
 
 if(dump) open(newunit=u, file=dumpfn, status='replace', action='write')
 
-write(stdout,"(a)", advance="no") ESC // "[2J"  !< move cursor to top left
+write(stdout,"(a)", advance="no") TL
+!! move cursor to top left
 
 do ii = 1,Nloop
   z=0
@@ -82,7 +87,7 @@ do ii = 1,Nloop
     j = j + 0.07
   enddo
 
-  write(stdout, "(a)", advance="no") ESC // "[d" !< line feed
+  write(stdout, "(a)", advance="no") LF
 
   do k=0, rows-2
     print '(81a)', screen(k*cols:k*cols+cols)
@@ -94,5 +99,7 @@ do ii = 1,Nloop
 enddo
 
 if(dump) close(u)
+
+print *, ESC // "[?25h" !< show cursor
 
 end program
