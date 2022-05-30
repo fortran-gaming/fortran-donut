@@ -10,8 +10,11 @@ Works in Linux/macOS and Windows Terminal, using escape codes to position cursor
 
 ## options
 
-`-frames 1000`: 1000 frames before exit
-`-dump file.txt`: dump each frame to a file
+`-frames 1000`
+: 1000 frames before exit
+
+`-dump file.txt`
+: dump each frame to a file
 
 ## Notes
 
