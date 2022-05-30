@@ -45,7 +45,7 @@ do ii = 1, command_argument_count()
 enddo
 
 
-cols = 80
+cols = 79
 rows = 22
 L = rows*cols
 
@@ -90,8 +90,8 @@ do ii = 1,Nloop
   write(stdout, "(a)", advance="no") LF
 
   do k=0, rows-2
-    print '(81a)', screen(k*cols:k*cols+cols)
-    if(dump) write(u, "(81a)") screen(k*cols:k*cols+cols)
+    print '(80a)', screen(k*cols:k*cols+cols)
+    if(dump) write(u, "(80a)") screen(k*cols:k*cols+cols)
   enddo
 
   a = a + 0.04
