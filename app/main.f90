@@ -1,23 +1,23 @@
 program donut
 
-use, intrinsic :: iso_fortran_env, only : wp=>real64, stdout => output_unit
+use, intrinsic:: iso_fortran_env, only: stdout => output_unit
 
 implicit none (type, external)
 
 character, parameter :: ESC = achar(27)
 character(3), parameter :: LF = ESC // "[d" !< line feed
-character(3), parameter :: TL = ESC // "[2J" !< erase screen and move to top left
+character(4), parameter :: TL = ESC // "[2J" !< erase screen and move to top left
 character, parameter :: TAB(0:11) = [".", ",", "-", "~", ":", ";", "=", "!", "*", "#", "$", "@"]
-real(wp), parameter :: PI = 4*atan(1.)
+real, parameter :: PI = 4*atan(1.)
 
 integer :: cols, rows, L, k
 
-real(wp) :: a=0, b=0, i, j
+real :: a=0, b=0, i, j
 
-real(wp), allocatable :: z(:)
+real, allocatable :: z(:)
 character, allocatable :: screen(:)
 
-real(wp) :: sini,cosj,sinA,sinj,cosA,cosj2, mess, cosi,cosB,t,sinB
+real :: sini,cosj,sinA,sinj,cosA,cosj2, mess, cosi,cosB,t,sinB
 integer :: x,y,o,N,ii, u, Nloop
 character(5) :: buf
 
@@ -74,9 +74,9 @@ do ii = 1,Nloop
       cosi = cos(i)
       mess = 1 / (sini*cosj2*sinA+sinj*cosA+5)
       t = sini*cosj2*cosA - sinj*sinA
-      x = 40 + 30*mess*(cosi*cosj2*cosB - t*sinB)
-      y = 12 + 15*mess*(cosi*cosj2*sinB + t*cosB)
-      o = min(L, x+cols*y)  !< C program goes out of bounds
+      x = int(40 + 30*mess*(cosi*cosj2*cosB - t*sinB))
+      y = int(12 + 15*mess*(cosi*cosj2*sinB + t*cosB))
+      o = min(L-1, x+cols*y)  !< C program goes out of bounds
       N = int(8*((sinj*sinA - sini*cosj*cosA)*cosB - sini*cosj*sinA - sinj*cosA - cosi * cosj*sinB))
       if(rows>y .and. y>0 .and. x>0 .and. cols>x .and. mess>z(o)) then
         z(o) = mess
