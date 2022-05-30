@@ -49,26 +49,26 @@ do ii = 1,Nloop
   z=0
   screen=""
   j=0
+  sinA = sin(a)
+  cosA = cos(a)
+  cosB = cos(b)
+  sinB = sin(b)
   do while(2*pi > j)
     i=0
+    cosj = cos(j)
+    cosj2 = cosj+2
+    sinj = sin(j)
     do while(2*pi > i)
       sini = sin(i)
-      cosj = cos(j)
-      sinA = sin(a)
-      sinj = sin(j)
-      cosA = cos(a)
-      cosj2 = cosj+2
+      cosi = cos(i)
       mess = 1 / (sini*cosj2*sinA+sinj*cosA+5)
-      cosi=cos(i)
-      cosB=cos(b)
-      sinB=sin(b)
       t = sini*cosj2*cosA - sinj*sinA
       x = 40 + 30*mess*(cosi*cosj2*cosB - t*sinB)
       y = 12 + 15*mess*(cosi*cosj2*sinB + t*cosB)
       o = min(L, x+cols*y)  !< C program goes out of bounds
       N = int(8*((sinj*sinA - sini*cosj*cosA)*cosB - sini*cosj*sinA - sinj*cosA - cosi * cosj*sinB))
       if(rows>y .and. y>0 .and. x>0 .and. cols>x .and. mess>z(o)) then
-        z(o)=mess
+        z(o) = mess
         screen(o) = TAB(max(N,0))
       endif
       i = i + 0.02

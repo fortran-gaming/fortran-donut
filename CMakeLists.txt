@@ -1,7 +1,5 @@
-cmake_minimum_required(VERSION 3.14...3.22)
+cmake_minimum_required(VERSION 3.14)
 
 project(DonutFortran LANGUAGES Fortran)
 
-enable_testing()
-
-add_executable(donut donut.f90)
+add_executable(donut app/main.f90)
