@@ -40,6 +40,7 @@ endif()
 add_executable(donut_ref app/main.c)
 target_link_libraries(donut_ref PRIVATE $<$<BOOL:${UNIX}>:m>)
 
+
 # --- auto-ignore build directory
 if(NOT EXISTS ${PROJECT_BINARY_DIR}/.gitignore)
   file(WRITE ${PROJECT_BINARY_DIR}/.gitignore "*")
